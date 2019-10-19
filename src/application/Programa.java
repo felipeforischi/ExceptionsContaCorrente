@@ -1,5 +1,6 @@
 package application;
 
+import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -12,7 +13,7 @@ public class Programa {
 		
 		Locale.setDefault(Locale.US);
 		Scanner sc = new Scanner (System.in);
-		
+		try {
 		System.out.println("Digite os dados da conta.");
 		System.out.print("Numero: ");
 		int numero = sc.nextInt();
@@ -29,12 +30,14 @@ public class Programa {
 		System.out.print("Digite o valor do saque: ");
 		double valor = sc.nextDouble();
 		
-		try {
 			cc.saque(valor);
 			System.out.println("Saldo Atual: " + String.format("%.2f", cc.getSaldo()));
 		}
 		catch (DomainException e) {
 			System.out.println("Erro no Saque: "+ e.getMessage());
+		}
+		catch(RuntimeException e) {
+			System.out.println("Erro de digitação");
 		}
 		
 		System.out.println("Operação finalizada. Até a próxima");
